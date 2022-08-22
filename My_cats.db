@@ -10,11 +10,17 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Scanner;
+
 public class Cats {
     public static void main(String... args) {
         Cats cats = new Cats();
         cats.open();
-        //library.insert();
+        cats.insert();
         cats.select();
         cats.close();
     }
@@ -38,7 +44,7 @@ public class Cats {
             String type = sc.nextLine();
 
             String query =
-                    "INSERT INTO My_cats (type) " +
+                    "INSERT INTO types (type) " +
                             "VALUES('" + type + "')";
 
             //Мы делаем как раз запрос в базу данных, уже обращаясь к нему на прямую
@@ -58,7 +64,6 @@ public class Cats {
         try {
             //обращение к БД
             Statement statement = connection.createStatement();
-            //выполнить запрос, лучше и правильнее сделать запрос не со *, а прописав всё, что у нас есть (сортировка по названию книги ORDER BY nameBook)
             String query = "SELECT id, type" +
                     " FROM types " +
                     "ORDER BY type";
