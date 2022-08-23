@@ -10,7 +10,7 @@ public class Cats {
         cats.open();
         //cats.insert();
         //cats.addAllTypes(cats.types);
-        //cats.deleteType();
+        cats.deleteType();
         cats.updateType();
         cats.select();
         cats.close();
@@ -137,10 +137,10 @@ public class Cats {
             Scanner sc = new Scanner(System.in);
             System.out.print("Введите тип кошки: ");
             String type = sc.nextLine();
-            System.out.print("Введите id, для восстановления: ");
+            System.out.print("Введите id: ");
             int id = sc.nextInt();
 
-            String query = "UPDATE types SET id = " + id +" WHERE type = " + type;
+            String query = "UPDATE types SET type = '" + type +"' WHERE id = " + id;
 
             Statement statement = connection.createStatement();
             statement.executeUpdate(query);
@@ -159,7 +159,7 @@ public class Cats {
             Statement statement = connection.createStatement();
             String query = "SELECT id, type" +
                     " FROM types " +
-                    "ORDER BY type";
+                    "ORDER BY id";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
