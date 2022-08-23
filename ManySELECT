@@ -186,7 +186,7 @@ public class Cats {
                     System.out.print("Введите до какого кота выводить: ");
                     int id = sc.nextInt();
 
-                    String query = "SELECT id, type FROM types WHERE id < " + id;
+                    String query = "SELECT id, type FROM types WHERE id <= " + id;
 
                     Statement statement = connection.createStatement();
                     ResultSet resultSet = statement.executeQuery(query);
