@@ -162,12 +162,11 @@ public class Cats {
             System.out.print("Введите id для получения котика: ");
             int id = sc.nextInt();
 
-            String query = "SELECT type FROM types WHERE id = '" + id + "'";
-
             Statement statement = connection.createStatement();
-            statement.executeUpdate(query);
 
-            System.out.println("Вы получили своего котика!");
+            System.out.println(statement.executeQuery("SELECT type FROM types WHERE id = " + id).getString("type") + "\n");
+
+            System.out.println("\nВы получили своего котика!");
             statement.close();
 
         }
@@ -190,8 +189,17 @@ public class Cats {
                     String query = "SELECT id, type FROM types WHERE id < " + id;
 
                     Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery(query);
+
+                    while (resultSet.next()) {
+                        id = resultSet.getInt("id");
+                        String type = resultSet.getString("type");
+                        System.out.println(id + "\t|" + type);
+                    }
+
                     statement.executeUpdate(query);
                     System.out.println("Список выведен!");
+                    resultSet.close();
                     statement.close();
                 }
                 case (2) -> {
@@ -202,8 +210,17 @@ public class Cats {
                     String query = "SELECT id, type FROM types WHERE type LIKE '%" + charRush + "'";
 
                     Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery(query);
+
+                    while (resultSet.next()) {
+                        int id = resultSet.getInt("id");
+                        String type = resultSet.getString("type");
+                        System.out.println(id + "\t|" + type);
+                    }
+
                     statement.executeUpdate(query);
                     System.out.println("Список выведен!");
+                    resultSet.close();
                     statement.close();
                 }
             }
