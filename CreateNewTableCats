@@ -231,6 +231,7 @@ public class Cats {
         }
     }
 
+    //НОВОЕ ЗАДАНИЕ, С ОБЪЕДИНЕНИЕМ ID-ШНИКОВ И СОЗДАНИЕ НОВОЙ ТАБЛИЦЫ
     private void newTableCats() {
         try {
             Statement statement = connection.createStatement();
