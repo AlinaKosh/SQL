@@ -13,6 +13,7 @@ public static void main(String... args) throws SQLException {
         //cats.insertCat("Тузик", "Турецкий ван", 7, 1.5);
 
         cats.addMoreCats(cats.names.length);
+        cats.selectCats();
         cats.select();
         cats.close();
     }
@@ -79,3 +80,25 @@ public static void main(String... args) throws SQLException {
     }
     
     
+    private void selectCats() {
+        //select() это и есть get_all_types(), вывод всех котов, которые есть у меня в базе
+        try {
+            //обращение к БД
+            Statement statement = connection.createStatement();
+            String query = "SELECT *" +
+                    " FROM cats " +
+                    "ORDER BY id";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                int age = resultSet.getInt("age");
+                int weight = resultSet.getInt("weight");
+                System.out.println(id + "\t|" + name + "\t|" + age + "\t|" + weight);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
